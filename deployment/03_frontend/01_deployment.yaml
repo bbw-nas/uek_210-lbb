@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: counter-frontend
+  labels:
+    app: counter-frontend
+    app.kubernetes.io/part-of: counter-app
+  namespace: 254501-samready
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: counter-frontend
+  template:
+    metadata:
+      name: counter-frontend
+      labels:
+        app: counter-frontend
+    spec:
+      containers:
+        - name: counter-frontend
+          image: ghcr.io/benschwarz1982/counter-frontend:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: npm_config_cache
+              value: ./.npm-cache
+            - name: NAMESPACE
+              value: "254501-heloli"
+            - name: BACKEND_URL
+              value: "https://counter-backend-254501-heloli.apps.exoscale-ch-gva-2-0.appuio.cloud"
+            - name: REACT_APP_VERSION
+              value: "1.0.0"
+            - name: REACT_APP_NAME
+              value: "Counter App"
+      restartPolicy: Always

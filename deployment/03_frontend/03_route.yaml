@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: counter-frontend
+  labels:
+    app: counter-frontend
+    app.kubernetes.io/part-of: counter-app
+  namespace: 254501-samready
+spec:
+  to:
+    kind: Service
+    name: counter-frontend
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

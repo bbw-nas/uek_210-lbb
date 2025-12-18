@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: counter-frontend
+  labels:
+    app: counter-frontend
+    app.kubernetes.io/part-of: counter-app
+  namespace: 254501-samready
+spec:
+  selector:
+    app: counter-frontend
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: NodePort
